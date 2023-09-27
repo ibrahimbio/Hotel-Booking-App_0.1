@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { postBooking } from "./BookingsService";
 
 const BookingsForm = ({ addBooking }) => {
   const [formData, setFormData] = useState({
@@ -13,20 +14,20 @@ const BookingsForm = ({ addBooking }) => {
     setFormData(newFormData);
   };
 
-//   const onSubmit = (e) => {
-//     e.preventDefault();
-//     postBooking(formData).then((data) => {
-//       addBooking(data);
-//     });
-//     setFormData({
-//       name: "",
-//       email: "",
-//       checked_in: false,
-//     });
-//   };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    postBooking(formData).then((data) => {
+      addBooking(data);
+    });
+    setFormData({
+      name: "",
+      email: "",
+      checked_in: false,
+    });
+  };
 
   return (
-    <form id="bookings-form">
+    <form onSubmit={onSubmit} id="bookings-form">
       <h2>Add a booking:</h2>
       <div className="formWrap">
         <label htmlFor="name">Name:</label>

@@ -13,9 +13,13 @@ function App() {
     });
   }, []);
 
+  const addBooking = (booking) => {
+    setBookings([...bookings, booking])
+  }
+
   return (
     <>
-      <BookingsForm />
+      <BookingsForm addBooking={addBooking}/>
       <BookingsGrid bookings={bookings}/>
     </>
   );
