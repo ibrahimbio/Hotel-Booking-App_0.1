@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { postBooking } from "./BookingsService";
 
+
+
 const BookingsForm = ({ addBooking }) => {
+    const [checked, setChecked] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    checked_in: false,
+    checked_in: checked,
   });
 
   const onChange = (e) => {
@@ -16,7 +19,9 @@ const BookingsForm = ({ addBooking }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    postBooking(formData).then((data) => {
+    const newFormData = {...formData}
+    newFormData.checked_in = checked
+    postBooking(newFormData).then((data) => {
       addBooking(data);
     });
     setFormData({
@@ -24,7 +29,12 @@ const BookingsForm = ({ addBooking }) => {
       email: "",
       checked_in: false,
     });
-  };
+}
+
+    const handleChange = (e) => {
+        setChecked(e.target.checked)
+    }
+
 
   return (
     <form onSubmit={onSubmit} id="bookings-form">
@@ -51,13 +61,16 @@ const BookingsForm = ({ addBooking }) => {
       </div>
       <div className="formWrap">
         <label htmlFor="checked-in">Checked in?</label>
-        <input
-          onChange={onChange}
+        {/* <input
+          onChange={handleChange}
           type="checkbox"
           id="checked_in"
           name="checked_in"
           value={formData.checked_in}
-        />
+        /> */}
+        <input value = {checked} type="checkbox" onChange= {handleChange}/>
+        <br></br>
+        {checked ? ('Checked') : ( 'Not Checked' )}
       </div>
 
       <input type="submit" value="save" id="save" />

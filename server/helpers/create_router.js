@@ -37,6 +37,7 @@ const createRouter = function (collection) {
 
   router.post('/', (req, res)=> {
     const data = req.body;
+    console.log(data);
     collection.insertOne(data).then((result)=>{
       res.json(result.ops[0])
 
