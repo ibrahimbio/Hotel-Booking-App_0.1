@@ -1,6 +1,14 @@
-const BookingsGrid = () => {
+import BookingsCard from "./BookingsCard";
+
+const BookingsGrid = ({bookings}) => {
+    const bookingsList = bookings.map((booking) => {
+        return <BookingsCard booking={booking} key={booking._id}/>
+
+    })
     return (  
-        <h1>Booking Grid</h1>
+        <>
+        {bookingsList}
+        </>
     );
 }
  
